@@ -1,6 +1,7 @@
 class Solution {
     public int countSquares(int[][] matrix) {
         //we will solve it using dynamic programmming
+        //for reference go through : https://www.youtube.com/watch?v=Z2h3rkVXPeQ
         int[][] dp = new int[matrix.length][matrix[0].length];
         int count =0;
         for(int i =0;i<matrix[0].length;i++){
