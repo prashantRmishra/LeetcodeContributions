@@ -1,9 +1,9 @@
 class Solution {
     public boolean canCross(int[] stones) {
         
-        // for(int i =3;i<stones.length;i++){
-        //     if(stones[i]> stones[i-1]*2) return false;
-        // }
+        for(int i =3;i<stones.length;i++){
+            if(stones[i]> stones[i-1]*2) return false;
+        }
         Stack<Integer> locations = new Stack<>();
         Stack<Integer> distanceTravelled  = new Stack<>();
         Set<Integer> set = new HashSet<>();
