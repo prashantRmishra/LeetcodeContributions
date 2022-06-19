@@ -29,8 +29,7 @@ class Solution {
 }
 **/
 
-// solution 2 
-// optimal sol :tc o(2^n)*k
+
 class Solution {
     List<List<Integer>> list = new ArrayList<>();
     public List<List<Integer>> subsetsWithDup(int[] nums) {
@@ -46,12 +45,14 @@ class Solution {
         if(i>=nums.length) {
             List<Integer> temp = new ArrayList<>(l);
             if(!list.contains(temp))
-                list.add(temp);
+            list.add(temp);
             return;
         }
         l.add(nums[i]);
         findSubsets(i+1,nums,l);
         l.remove(l.size()-1);
         findSubsets(i+1,nums,l);
+        
+        
     }
 }
