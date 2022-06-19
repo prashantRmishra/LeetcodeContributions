@@ -1,6 +1,6 @@
 
 // approach one : using recursion : though this solutions works but,
- // if we think of tc its o(2^n)k^2.logk // as o(2^n) for recursion , k : if we assume average length of each subset is k , then k subsets are put in another List i.e. 'list', and klogk for sorting list of size k 
+ // if we think of tc its o(2^n)k.logk // as o(2^n) for recursion , k : if we assume average length of each subset is k , then k subsets are put in another List i.e. 'list', hence klogk for sorting list of size k 
 // moral of the story is we will have to optimize this solution to get a better tc
 /*
 class Solution {
@@ -29,7 +29,8 @@ class Solution {
 }
 **/
 
-
+// solution 2 
+// optimal sol :tc o(2^n)*k
 class Solution {
     List<List<Integer>> list = new ArrayList<>();
     public List<List<Integer>> subsetsWithDup(int[] nums) {
@@ -42,17 +43,15 @@ class Solution {
         
     }
     public void findSubsets(int i, int[] nums, List<Integer> l){
-        if(i>=nums.length) {
-            List<Integer> temp = new ArrayList<>(l);
-            if(!list.contains(temp))
-            list.add(temp);
-            return;
+      
+        List<Integer> temp = new ArrayList<>(l);
+        list.add(temp);
+        for(int p = i;p<nums.length;p++){
+            if(p>i && nums[p]==nums[p-1]) continue;
+            l.add(nums[p]);
+            findSubsets(p+1,nums,l);
+            l.remove(l.size()-1);
         }
-        l.add(nums[i]);
-        findSubsets(i+1,nums,l);
-        l.remove(l.size()-1);
-        findSubsets(i+1,nums,l);
-        
         
     }
 }
