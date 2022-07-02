@@ -49,21 +49,39 @@ class Solution {
     //     return dp[index] = Integer.max(takeIt,donttakeIt);
     // }
     // bottom up approach ie tabulation tc and space complexity is same
-    int findMaxSum(int arr[], int n){
-        int dp[] = new int[n];
-        Arrays.fill(dp,-1);
-        dp[0] = arr[0];
-        int negativeIndexVal = 0;
+    // int findMaxSum(int arr[], int n){
+    //     int dp[] = new int[n];
+    //     Arrays.fill(dp,-1);
+    //     dp[0] = arr[0];
+    //     int negativeIndexVal = 0;
+    //     for(int i =1;i<n;i++){
+    //         int take  = arr[i]; 
+    //         if(i>1) take+=dp[i-2];
+    //         int dontTake = 0 + dp[i-1];
+            
+    //         dp[i] = Math.max(take,dontTake);
+    //     }
+    //     return dp[n-1];
+        
+    // }
+    
+    //tabulations with memory optimization
+    
+     int findMaxSum(int arr[], int n){
+       
+        int prev = arr[0];
+        int prev2 = 0;
         for(int i =1;i<n;i++){
             int take  = arr[i]; 
-            if(i>1) take+=dp[i-2];
-            int dontTake = 0 + dp[i-1];
+            if(i>1) take+=prev2;
+            int dontTake = 0 + prev;
             
-            dp[i] = Math.max(take,dontTake);
+            int currenti = Math.max(take,dontTake);
+            prev2 = prev;
+            prev = currenti;
         }
-        return dp[n-1];
+        return prev;
         
     }
     
-    //t
 }
