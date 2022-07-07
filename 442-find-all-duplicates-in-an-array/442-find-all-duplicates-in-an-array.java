@@ -11,6 +11,29 @@
 //     }
 // }
 //the above approach is useless though it works, as it is not using space of O(1)
+
+/*
+cycle sort : it will put element to its indexes ie 1 will be at index 0, 2 will be at index 1 and so on
+Example : 
+[4, 3, 2, 7, 8, 2, 3, 1]
+i =0
+[7, 3, 2, 4, 8, 2, 3, 1]
+[3, 3, 2, 4, 8, 2, 7, 1]
+[2, 3, 3, 4, 8, 2, 7, 1]
+[3, 2, 3, 4, 8, 2, 7, 1] as 3 = arr[2] hence i++;
+i =1
+[3, 2, 3, 4, 8, 2, 7, 1] as 2 = arr[1] hence i++;
+i =2;
+[3, 2, 3, 4, 8, 2, 7, 1] as 3 = arr[2] hence i++;
+i = 3
+[3, 2, 3, 4, 8, 2, 7, 1] as 4 = arr[3] hence i++;
+i=4;
+[3, 2, 3, 4, 1, 2, 7, 8]
+[1, 2, 3, 4, 3, 2, 7, 8] as 3 = arr[2] hence i++;
+i=5, as 2 = arr[1] hence i++;
+i =6;
+
+*/
 class Solution {
     public List<Integer> findDuplicates(int[] nums){
         List<Integer> list = new ArrayList<>();
