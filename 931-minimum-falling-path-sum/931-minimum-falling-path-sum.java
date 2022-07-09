@@ -5,15 +5,15 @@ class Solution {
     public int minFallingPathSum(int[][] matrix) {
        // as we have find the smallest distance from any of the element in the first row
         //hence iterate through all the elements in the first row
-        
-        for(int i = 0;i<matrix[0].length;i++){
-            //create a dp arrays for all the starting point in the first row and fill it up 
+        //create a dp arrays for all the starting point in the first row and fill it up 
             // with -1 values 
-            int dp[][] = new int[matrix.length][matrix[0].length];
-            for(int row[]: dp){
-                Arrays.fill(row,-1);
-            }
+        int dp[][] = new int[matrix.length][matrix[0].length];
+        for(int row[]: dp){
+            Arrays.fill(row,-1);
+        }
             
+        for(int i = 0;i<matrix[0].length;i++){
+  
             min  = Integer.min(min,solve(matrix,0,i,dp));
         }  
         return min;
