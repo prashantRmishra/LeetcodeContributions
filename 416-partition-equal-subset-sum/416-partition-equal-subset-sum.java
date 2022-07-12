@@ -1,3 +1,5 @@
+// tc : o(2^n) as we have two choices take or not take at a given index of arr of size n
+// space complexity : o(n) for stack space
 // we have to find two subset where sum of both the subset is equal
 // basically we have to find a subset where sum of all the elements of the subset is equals to the sum/2  where sum is total sum of all the elements in the array.
 // This is because if one subset sum is sum/2, then there must be another subset whose sum is also sum/2 , hence sum/2 + sum/2 = sum of the array it self
@@ -37,6 +39,44 @@
 // Memoization top down approach
 // there are two changing factors index and target hence we will be using 2d dp to solve 
 // this
+//tc = two states O(n*m) n is sizse of arr, and m is different values of target while execution 
+// space c : o(n) + O(n*m) for auxillary stack space and dp array space
+// class Solution {
+//     public boolean canPartition(int[] nums) {
+//         int sum = 0;
+//         for(int i : nums){
+//             sum+=i;
+//         }
+//         if(sum%2!=0) return false;
+//         int target = sum/2;
+//         int dp[][] = new int[nums.length][target+1]; // as nums.length size will mean that index can range from 0 to nums.length-1 and target+1 size means that target value can range form 0 to target :)
+//         for(int[] row: dp){
+//             Arrays.fill(row,-1);
+//         }
+//         return solve(nums,nums.length-1,target,dp);
+        
+//     }
+//     public boolean solve(int[] nums, int i, int target,int[][] dp){
+//         if(target == 0) return true;
+//         if(i==0){
+//             if(nums[i] == target) return true;
+//             else return false;
+//         }
+//         if(dp[i][target]!=-1) return dp[i][target]==1 ? true:false;
+//         boolean take = false;
+//         if(nums[i]<=target){
+//             take = solve(nums,i-1,target-nums[i],dp);
+//         }
+//         boolean dontTake = solve(nums,i-1,target,dp);
+//         dp[i][target] = (take || dontTake) ? 1 : 0;
+//         if(dp[i][target] ==1) return true;
+//         return false;
+//     }
+// }
+// tabulation approch for space optimization
+// tc = O(n*m)
+//space c : O(n*m);
+
 class Solution {
     public boolean canPartition(int[] nums) {
         int sum = 0;
@@ -49,10 +89,34 @@ class Solution {
         for(int[] row: dp){
             Arrays.fill(row,-1);
         }
-        return solve(nums,nums.length-1,target,dp);
+         //base case 1 if target is equals to 0 return true no matter what the index is 
+        for(int i =0;i<nums.length;i++){
+            dp[i][0] = 1; // 1 is true, 0 is false and -1 is not traversed yet
+        }
+        // base case 2
+        //if the index is 0 and target value is equals to nums[index] return true
+        if(nums[0]<=target)
+        dp[0][nums[0]] = 1;
+        
+        // now convert the states into for loop
+        //i =0 and target =0 state are already done hence move to i=1 to n-1 and target =1 to target
+        for(int i =1;i<nums.length;i++){
+            for(int tar =1;tar<=target;tar++){
+                // paste the recurrence relation from memoization solution as it is 
+                boolean take = false;
+                if(nums[i]<=tar){
+                    take = dp[i-1][tar-nums[i]]==1 ? true: false;
+                }
+                boolean dontTake = dp[i-1][tar] ==1 ? true:false;
+                dp[i][tar] = (take || dontTake) ? 1 : 0;
+            }
+        }
+        return dp[nums.length-1][target]==1 ? true : false;
         
     }
     public boolean solve(int[] nums, int i, int target,int[][] dp){
+       
+        
         if(target == 0) return true;
         if(i==0){
             if(nums[i] == target) return true;
