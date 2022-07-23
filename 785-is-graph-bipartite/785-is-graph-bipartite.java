@@ -15,7 +15,6 @@ class Solution {
         }
         int visited[] = new int[graph.length];
         int color[] = new int[graph.length];
-        // we will start from the first node ie 0
         for(int i =0;i<graph.length;i++){
             if(visited[i]==0){
                 visited[i] =1;
@@ -27,7 +26,6 @@ class Solution {
         
     }
     public boolean isPossible(int node, int[] visited, int color[], ArrayList<ArrayList<Integer>> list){
-        System.out.println(list);
         Queue<Integer> q = new LinkedList<>();
         q.add(node);
         while(!q.isEmpty()){
