@@ -1,31 +1,24 @@
 class Solution {
+    // using depth first search for checking bipartite graph
     public boolean isBipartite(int[][] graph) {
-        int visited[] = new int[graph.length];
+        
         int color[] = new int[graph.length];
         Arrays.fill(color,-1);
         for(int i =0;i<graph.length;i++){
             if(color[i]==-1){
-                color[i] =0;// initially color it with 0
+                color[i] = 1;
                 if(!isPossible(i,color,graph)) return false;
             }
         }
         return true;
-        
     }
-    public boolean isPossible(int node,int color[], int graph[][]){
-        Queue<Integer> q = new LinkedList<>();
-        q.add(node);
-        while(!q.isEmpty()){
-            Integer n = q.remove();
-            for(int it: graph[n]){
-                if(color[it] ==-1){
-                    color[it] = 1-color[n]; // so if n's color was 0 , `it` color will be 1 , else 0
-                    q.add(it);
-                }
-                else if(color[it]==color[n]){
-                     return false;
-                }
+    public boolean isPossible(int n, int[] color,int[][] graph){
+        for(int node : graph[n]){
+            if(color[node]==-1){
+                color[node] = 1-color[n];
+                if(!isPossible(node,color,graph)) return false;
             }
+            else if (color[node] ==color[n]) return false;
         }
         return true;
     }
