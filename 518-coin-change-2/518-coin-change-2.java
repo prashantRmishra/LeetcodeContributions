@@ -7,7 +7,6 @@ class Solution {
     public int allPossibleCombinations(int index,List<Integer> list,int[] coins, int[][] dp,int amount){
         if(index==0){
             if(amount % coins[index]==0) {
-                System.out.println(list);
                 return  1;
             }
             return 0;
