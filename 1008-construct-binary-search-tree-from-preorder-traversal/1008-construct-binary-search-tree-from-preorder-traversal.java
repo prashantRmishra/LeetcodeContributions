@@ -13,54 +13,35 @@
  *     }
  * }
  */
-
-
-/*
-Points to take into consideration 
-inpreorder : first element is the root element, and in
-inorder  : everything left to the root will come in the left subtree and everything in
-            the right of the root will come in the right subtree.
-Example : preoder : 8,5,1,7,10,12
-                    -
-          inorder : 1,5,7,8,10,12
-                          -
-*/
 class Solution {
     public TreeNode bstFromPreorder(int[] preorder) {
-        
-        Queue<Integer> preq = new LinkedList<>();
-          Set<Integer> set = new TreeSet<>();
-        
-        // put all the preorder elements in the queue
-        for(int i : preorder){
-            preq.add(i);
+        int index =0;
+        int sortedArray[] = new int[preorder.length];
+        Queue<Integer> q = new LinkedList<>();
+        for(int i =0;i< sortedArray.length;i++){
+             sortedArray[i] = preorder[i];
+             q.add(preorder[i]);
         }
-      
-        // put all the preorder in TreeSet so that they will get sorted in ascending order,
-        //which is nothing but inorder traversal of the same array 
-        for(int i: preorder){
-            set.add(i);
-        }
-        List<Integer> inorder  = new ArrayList<>(set); // put the set in the list
+        Arrays.sort(sortedArray);
+        return createBst(0,sortedArray.length-1,q,sortedArray);
         
-        return constructTree(preq,inorder,0,preorder.length-1);
     }
-    
-    public TreeNode constructTree(Queue<Integer> pre, List<Integer> in, int start,int end){
-        
-        if(start>end) return null;
-        if(pre.isEmpty()) return null;
-        
-        int rootElement = pre.remove(); // remove or pop() (remember : we are removing the elements from the queue so that we don't use alredy used element in the construction of the root node) the top element
-        //in the queue as it will be the root element
-        TreeNode root = new TreeNode(rootElement); //create root
-        int index = in.indexOf(rootElement); //find index of the same root element in the inorder list
-        // as the left part of that index will become left subtree and right part of that index will become right subtree
-        
-        TreeNode left = constructTree(pre,in,start,index-1); // recursive call for left subtree
-        TreeNode right = constructTree(pre,in,index+1,end); // recursive call for right subtree
-        root.left = left;
-        root.right = right;
-        return root;
+    public TreeNode createBst(int start, int end, Queue<Integer> q,int[] sortedArray){
+        if(start > end) return null;
+        int rootVal = q.remove();
+        TreeNode node = new TreeNode(rootVal);
+        int mid = binarySearch(start,end,rootVal,sortedArray);
+        node.left = createBst(start,mid-1,q,sortedArray);
+        node.right = createBst(mid+1,end,q,sortedArray);
+        return node;
+    }
+    public int binarySearch(int start, int end,int target, int[] arr){
+        if(start > end) return -1;
+        int mid  = start + (end-start)/2;
+        if(arr[mid] == target) return mid;
+        if(arr[mid] > target){
+            return binarySearch(start,mid-1, target, arr);
+        }
+        return binarySearch(mid+1, end, target,arr);
     }
 }
