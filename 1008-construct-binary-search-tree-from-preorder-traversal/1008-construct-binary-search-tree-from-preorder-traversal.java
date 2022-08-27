@@ -13,8 +13,21 @@
  *     }
  * }
  */
+//for more idea see this https://www.youtube.com/watch?v=UmJT3j26t1I
 class Solution {
-    public TreeNode bstFromPreorder(int[] preorder) {
+    public TreeNode bstFromPreorder(int preorder[]){
+        return generateBST(preorder, new int[]{0},Integer.MAX_VALUE); //0 indicates the current pointer of the element that needs to be inserted
+        //Integer.MAX_VALUE is max bound
+    }
+    public TreeNode generateBST(int[] pre,int pointer[], int bound){
+        if(pointer[0] > pre.length-1 || pre[pointer[0]] > bound) return null;
+        TreeNode node = new TreeNode(pre[pointer[0]++]);// value at pointer has been added to the tree, now move to next value int the array
+        node.left = generateBST(pre,pointer,node.val); // now node.val will become bound for all the 
+        // elements to the left of node, as they can't be equal to or greater than node.val
+        node.right = generateBST(pre,pointer,bound);//for the right subtree bound will remain same
+        return node;
+    }
+    public TreeNode bstFromPreordero(int[] preorder) {
         int index =0;
         int sortedArray[] = new int[preorder.length];
         Queue<Integer> q = new LinkedList<>();
