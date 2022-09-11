@@ -15,7 +15,7 @@
  */
 class Solution {
     public boolean isSymmetric(TreeNode root) {
-        return preorder(root.left,root.right);
+        return preorder(root,root);
     }
     public boolean preorder(TreeNode node, TreeNode fode){
         if(node==null && fode ==null) return true;
