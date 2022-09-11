@@ -31,6 +31,7 @@ class Solution {
             }
             
         }
+        //if we were to return length of the logest palindromic substring we could have returned 'length';
         return s.substring(start,start+length);
     }
 }
