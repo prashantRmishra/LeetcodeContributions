@@ -11,11 +11,9 @@ class Solution {
             if(!set.contains(s.charAt(j))){
                 set.add(s.charAt(j));
                 j++;
-                len++; 
-                max  = Integer.max(len,max);
+                max  = Integer.max(max,set.size());
             }
             else{
-                len =0;
                 set.clear();
                 j = i+1;
                 i++;
