@@ -34,16 +34,12 @@ class Solution {
 class Solution {
     List<List<Integer>> list = new ArrayList<>();
     public List<List<Integer>> subsetsWithDup(int[] nums) {
-        // for getting all the possible subsets we can use recursion the 
-        // way we used for subset I 
-        // but we will have to avoid having duplicates 
         Arrays.sort(nums);
         findSubsets(0,nums,new ArrayList<>());
         return list;
         
     }
     public void findSubsets(int i, int[] nums, List<Integer> l){
-      
         List<Integer> temp = new ArrayList<>(l);
         list.add(temp);
         for(int p = i;p<nums.length;p++){
