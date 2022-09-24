@@ -1,5 +1,5 @@
 class Solution {
-   // this is one approach to generate all the possible permutations but its not giving the right results
+   // this is one approach to generate all the possible permutations but its results are not sorted hence kth permutation is not exact.
     /*
      int count =0;
     public String getPermutation(int n, int k) {
@@ -33,7 +33,7 @@ class Solution {
     }
     */
     
-    // second approach ,this might give the right solution
+    // second approach ,this gives the right solution
     int count = 0;
     List<Integer> l = null;
     public String getPermutation(int n, int k){
